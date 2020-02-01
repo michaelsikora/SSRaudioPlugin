@@ -1,3 +1,6 @@
 [submodule "ssr"]
 	path = ssr
 	url = https://github.com/SoundScapeRenderer/ssr
+[submodule "IEMPluginSuite"]
+	path = IEMPluginSuite
+	url = https://git.iem.at/audioplugins/IEMPluginSuite
