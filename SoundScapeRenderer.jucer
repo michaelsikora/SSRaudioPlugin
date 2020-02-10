@@ -11,7 +11,7 @@
               pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0"
               pluginAUExportPrefix="SoundScapeRendererAU" aaxIdentifier="at.iem.SoundScapeRenderer"
               pluginAAXCategory="2" jucerVersion="5.4.5" companyCopyright="IEM - Michael Sikora"
-              companyName="IEM" companyWebsite="iem.at" headerPath="../../IEMPluginSuite/resources/"
+              companyName="IEM" companyWebsite="iem.at" headerPath="../../IEMPluginSuite/resources/&#10;../../ssr/flext/"
               pluginFormats="buildStandalone,buildVST" defines="JUCE_USE_CUSTOM_PLUGIN_STANDALONE_APP=1"
               binaryDataNamespace="BinaryData">
   <MAINGROUP id="LpzrV9" name="SoundScapeRenderer">
@@ -121,12 +121,12 @@
         <MODULEPATH id="juce_osc" path="../../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </VS2017>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" smallIcon="SZT7j9" bigIcon="SZT7j9">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile/" smallIcon="SZT7j9" bigIcon="SZT7j9">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="SoundScapeRenderer"
-                       headerPath="/usr/local/include"/>
+                       headerPath="/usr/local/include&#10;/usr/local/include/flext"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="SoundScapeRenderer"
-                       headerPath="/usr/local/include"/>
+                       headerPath="/usr/local/include&#10;/usr/local/include/flext"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../../../../Applications/JUCE/modules"/>
