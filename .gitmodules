@@ -4,3 +4,6 @@
 [submodule "IEMPluginSuite"]
 	path = IEMPluginSuite
 	url = https://git.iem.at/audioplugins/IEMPluginSuite
+[submodule "JUCE"]
+	path = JUCE
+	url = https://github.com/WeAreROLI/JUCE.git
