@@ -25,6 +25,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "../IEMPluginSuite/resources/AudioProcessorBase.h"
 
+
 #define ProcessorClass SoundScapeRendererAudioProcessor
 
 //==============================================================================

@@ -3,7 +3,7 @@
 <JUCERPROJECT id="mbpAgi" name="SoundScapeRenderer" displaySplashScreen="0"
               reportAppUsage="0" splashScreenColour="Dark" projectType="audioplug"
               version="0.6.0" bundleIdentifier="at.iem.SoundScapeRenderer"
-              includeBinaryInAppConfig="1" cppLanguageStandard="14" buildVST="1"
+              includeBinaryInAppConfig="1" cppLanguageStandard="17" buildVST="1"
               buildVST3="0" buildAU="0" buildAUv3="0" buildRTAS="0" buildAAX="0"
               buildStandalone="1" enableIAA="0" pluginName="SoundScapeRenderer"
               pluginDesc="SoundScapeRenderer" pluginManufacturer="IEM" pluginManufacturerCode="IEMA"
@@ -11,7 +11,7 @@
               pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0"
               pluginAUExportPrefix="SoundScapeRendererAU" aaxIdentifier="at.iem.SoundScapeRenderer"
               pluginAAXCategory="2" jucerVersion="5.4.5" companyCopyright="IEM - Michael Sikora"
-              companyName="IEM" companyWebsite="iem.at" headerPath="../../IEMPluginSuite/resources/&#10;../../ssr/flext/"
+              companyName="IEM" companyWebsite="iem.at" headerPath="../../IEMPluginSuite/resources/&#10;../../ssr/gml/include/&#10;../../ssr/&#10;../../ssr/apf/"
               pluginFormats="buildStandalone,buildVST" defines="JUCE_USE_CUSTOM_PLUGIN_STANDALONE_APP=1"
               binaryDataNamespace="BinaryData">
   <MAINGROUP id="LpzrV9" name="SoundScapeRenderer">
@@ -50,6 +50,8 @@
       <FILE id="xaLYRY" name="OSCUtilities.h" compile="0" resource="0" file="IEMPluginSuite/resources/OSC/OSCUtilities.h"/>
     </GROUP>
     <GROUP id="{508CBC88-3E2D-B197-3051-B94590C10F68}" name="Source">
+      <FILE id="jViIeu" name="ssr_juce.cpp" compile="1" resource="0" file="Source/ssr_juce.cpp"/>
+      <FILE id="zppBKG" name="ssr_juce.h" compile="0" resource="0" file="Source/ssr_juce.h"/>
       <FILE id="SLgq9s" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="Jc4gSH" name="PluginProcessor.h" compile="0" resource="0"
@@ -121,12 +123,11 @@
         <MODULEPATH id="juce_osc" path="../../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </VS2017>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile/" smallIcon="SZT7j9" bigIcon="SZT7j9">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile/" smallIcon="SZT7j9" bigIcon="SZT7j9"
+                externalLibraries="fftw3f&#10;sndfile&#10;xml2" linuxExtraPkgConfig="libxml-2.0">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="SoundScapeRenderer"
-                       headerPath="/usr/local/include&#10;/usr/local/include/flext"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="SoundScapeRenderer"
-                       headerPath="/usr/local/include&#10;/usr/local/include/flext"/>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="SoundScapeRenderer"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="SoundScapeRenderer"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../../../../Applications/JUCE/modules"/>

@@ -36,7 +36,7 @@ SoundScapeRendererAudioProcessorEditor::SoundScapeRendererAudioProcessorEditor (
 
     // make title and footer visible, and set the PluginName
     addAndMakeVisible (&title);
-    title.setTitle (String ("Multichannel"), String ("Template"));
+    title.setTitle (String ("SoundScape"), String ("Renderer"));
     title.setFont (globalLaF.robotoBold, globalLaF.robotoLight);
     addAndMakeVisible (&footer);
     // ============= END: essentials ========================

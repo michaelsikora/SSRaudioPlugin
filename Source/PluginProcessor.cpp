@@ -23,8 +23,10 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-#include "../ssr/flext/ssr_flext.h"
-#include "../ssr/src/binauralrenderer.h"
+#include "ssr_juce.h"
+#include "src/binauralrenderer.h"
+
+SSR_JUCE_INSTANCE(binaural, ssr::BinauralRenderer)
 
 //==============================================================================
 SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
@@ -56,8 +58,7 @@ SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
     parameters.addParameterListener ("param1", this);
     parameters.addParameterListener ("param2", this);
     
-    
-    SSR_FLEXT_INSTANCE(binaural, ssr::BinauralRenderer)
+ 
 }
 
 SoundScapeRendererAudioProcessor::~SoundScapeRendererAudioProcessor()
