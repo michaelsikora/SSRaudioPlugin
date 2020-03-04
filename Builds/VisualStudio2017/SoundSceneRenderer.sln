@@ -1,0 +1,56 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2017
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoundSceneRenderer - Standalone Plugin", "SoundSceneRenderer_StandalonePlugin.vcxproj", "{B7A35FE7-1D6B-83A5-3109-CEF6448AB2EF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4220D7C7-1568-9383-6BBB-362686BFFF83} = {4220D7C7-1568-9383-6BBB-362686BFFF83}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoundSceneRenderer - VST", "SoundSceneRenderer_VST.vcxproj", "{BD6B9FB7-109D-AB36-9CD1-FA4E914169B5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4220D7C7-1568-9383-6BBB-362686BFFF83} = {4220D7C7-1568-9383-6BBB-362686BFFF83}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoundSceneRenderer - VST3", "SoundSceneRenderer_VST3.vcxproj", "{91911278-EE10-EBDA-A310-D85BED64EF4B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4220D7C7-1568-9383-6BBB-362686BFFF83} = {4220D7C7-1568-9383-6BBB-362686BFFF83}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoundSceneRenderer - Shared Code", "SoundSceneRenderer_SharedCode.vcxproj", "{4220D7C7-1568-9383-6BBB-362686BFFF83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release 64bit|x64 = Release 64bit|x64
+		Release 32bit|Win32 = Release 32bit|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD6B9FB7-109D-AB36-9CD1-FA4E914169B5}.Debug|x64.ActiveCfg = Debug|x64
+		{BD6B9FB7-109D-AB36-9CD1-FA4E914169B5}.Debug|x64.Build.0 = Debug|x64
+		{BD6B9FB7-109D-AB36-9CD1-FA4E914169B5}.Release 64bit|x64.ActiveCfg = Release 64bit|x64
+		{BD6B9FB7-109D-AB36-9CD1-FA4E914169B5}.Release 64bit|x64.Build.0 = Release 64bit|x64
+		{BD6B9FB7-109D-AB36-9CD1-FA4E914169B5}.Release 32bit|Win32.ActiveCfg = Release 32bit|Win32
+		{BD6B9FB7-109D-AB36-9CD1-FA4E914169B5}.Release 32bit|Win32.Build.0 = Release 32bit|Win32
+		{91911278-EE10-EBDA-A310-D85BED64EF4B}.Debug|x64.ActiveCfg = Debug|x64
+		{91911278-EE10-EBDA-A310-D85BED64EF4B}.Debug|x64.Build.0 = Debug|x64
+		{91911278-EE10-EBDA-A310-D85BED64EF4B}.Release 64bit|x64.ActiveCfg = Release 64bit|x64
+		{91911278-EE10-EBDA-A310-D85BED64EF4B}.Release 64bit|x64.Build.0 = Release 64bit|x64
+		{91911278-EE10-EBDA-A310-D85BED64EF4B}.Release 32bit|Win32.ActiveCfg = Release 32bit|Win32
+		{91911278-EE10-EBDA-A310-D85BED64EF4B}.Release 32bit|Win32.Build.0 = Release 32bit|Win32
+		{B7A35FE7-1D6B-83A5-3109-CEF6448AB2EF}.Debug|x64.ActiveCfg = Debug|x64
+		{B7A35FE7-1D6B-83A5-3109-CEF6448AB2EF}.Debug|x64.Build.0 = Debug|x64
+		{B7A35FE7-1D6B-83A5-3109-CEF6448AB2EF}.Release 64bit|x64.ActiveCfg = Release 64bit|x64
+		{B7A35FE7-1D6B-83A5-3109-CEF6448AB2EF}.Release 64bit|x64.Build.0 = Release 64bit|x64
+		{B7A35FE7-1D6B-83A5-3109-CEF6448AB2EF}.Release 32bit|Win32.ActiveCfg = Release 32bit|Win32
+		{B7A35FE7-1D6B-83A5-3109-CEF6448AB2EF}.Release 32bit|Win32.Build.0 = Release 32bit|Win32
+		{4220D7C7-1568-9383-6BBB-362686BFFF83}.Debug|x64.ActiveCfg = Debug|x64
+		{4220D7C7-1568-9383-6BBB-362686BFFF83}.Debug|x64.Build.0 = Debug|x64
+		{4220D7C7-1568-9383-6BBB-362686BFFF83}.Release 64bit|x64.ActiveCfg = Release 64bit|x64
+		{4220D7C7-1568-9383-6BBB-362686BFFF83}.Release 64bit|x64.Build.0 = Release 64bit|x64
+		{4220D7C7-1568-9383-6BBB-362686BFFF83}.Release 32bit|Win32.ActiveCfg = Release 32bit|Win32
+		{4220D7C7-1568-9383-6BBB-362686BFFF83}.Release 32bit|Win32.Build.0 = Release 32bit|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

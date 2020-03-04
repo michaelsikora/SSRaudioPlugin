@@ -23,25 +23,16 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-#include "ssr_juce.h"
-#include "src/binauralrenderer.h"
-
-SSR_JUCE_INSTANCE(binaural, ssr::BinauralRenderer)
-
 //==============================================================================
 SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
 : AudioProcessorBase (
-                      #ifndef JucePlugin_PreferredChannelConfigurations
+#ifndef JucePlugin_PreferredChannelConfigurations
                       BusesProperties()
-#if ! JucePlugin_IsMidiEffect
-#if ! JucePlugin_IsSynth
-                      .withInput ("Input",  AudioChannelSet::discreteChannels (10), true)
+                      .withInput ("Input",  AudioChannelSet::discreteChannels (64), true)
+                      .withOutput ("Output", AudioChannelSet::discreteChannels (64), true),
 #endif
-                      .withOutput ("Output", AudioChannelSet::discreteChannels (64), true)
-#endif
-                       ,
-#endif
-                       createParameterLayout())
+                       createParameterLayout()),
+                       SsrJuce()
 {
     // get pointers to the parameters
     inputChannelsSetting = parameters.getRawParameterValue ("inputChannelsSetting");
@@ -58,7 +49,6 @@ SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
     parameters.addParameterListener ("param1", this);
     parameters.addParameterListener ("param2", this);
     
- 
 }
 
 SoundScapeRendererAudioProcessor::~SoundScapeRendererAudioProcessor()
@@ -127,12 +117,14 @@ void SoundScapeRendererAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    /*for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         float* channelData = buffer.getWritePointer (channel);
         ignoreUnused (channelData);
         // ..do something to the data...
-    }
+    }*/
+    
+    _engine.audio_callback(Blocksize(), InSig(), OutSig());
 }
 
 //==============================================================================

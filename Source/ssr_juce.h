@@ -14,16 +14,17 @@
 #ifndef SSR_JUCE_H
 #define SSR_JUCE_H
 
-//#include <string>
+#include <string>
 #include <vector>
 
 #define APF_MIMOPROCESSOR_SAMPLE_TYPE float
 
-
+/*
 #define SSR_JUCE_INSTANCE(name, renderer) \
 class ssr_ ## name : public SsrJuce<renderer> { \
   using SsrJuce<renderer>::SsrJuce; };
-
+*/
+  
 #include "apf/pointer_policy.h"
 
 //#include "src/geometry.h"  // for ssr::quat
@@ -32,8 +33,7 @@ class ssr_ ## name : public SsrJuce<renderer> { \
 
 template<typename Renderer>
 class SsrJuce
-{
-        
+{    
     public:
         using sample_type = typename Renderer::sample_type;
         
@@ -45,26 +45,28 @@ class SsrJuce
         ~SsrJuce();
         
         
+    Renderer _engine;
+        
     private:
+        
     
         apf::parameter_map _setup_default_parameters(){
             apf::parameter_map params;
             
-            params.set("in_channels", 64);
-            params.set("out_channels", 64);
+//            params.set("in_channels", 64);
+//            params.set("out_channels", 64);
             params.set("threads",1);
 //            params.set("reproduction_setup", );
 //            params.set("hrir_file", );
-            params.set("block_size", 2048);
-            params.set("sample_rate", 44100);
+//            params.set("block_size", block_size());
+//            params.set("sample_rate", sample_rate());
             
             return params;
         }
         
     int _in_channels;
-    Renderer _engine;
+    std::vector<sample_type*> _inputs, _outputs;
     std::vector<std::string> _source_ids;    
 };
-
 
 #endif // SSR_JUCE_H
