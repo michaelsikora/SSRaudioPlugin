@@ -23,7 +23,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-
 //==============================================================================
 SoundScapeRendererAudioProcessorEditor::SoundScapeRendererAudioProcessorEditor (SoundScapeRendererAudioProcessor& p, AudioProcessorValueTreeState& vts)
     : AudioProcessorEditor (&p), audioProcessor (p), valueTreeState (vts), footer (p.getOSCParameterInterface())

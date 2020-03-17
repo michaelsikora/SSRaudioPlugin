@@ -22,27 +22,22 @@
 
 #pragma once
 
+//#ifndef PLUGIN_PROCESSOR_H
+//#define PLUGIN_PROCESSOR_H
+
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "../IEMPluginSuite/resources/AudioProcessorBase.h"
 
+#include "ssr_juce.h"
+#include "binauralrenderer.h"
+
 #define ProcessorClass SoundScapeRendererAudioProcessor
 
-#include <string>
-#include <vector>
-
-#define APF_MIMOPROCESSOR_SAMPLE_TYPE float
-
-#include "apf/pointer_policy.h"
-
-#include "ssr_juce.h"
-#include "src/binauralrenderer.h"
-
 //==============================================================================
-class SoundScapeRendererAudioProcessor  :  public AudioProcessorBase<IOTypes::AudioChannels<10>, IOTypes::Ambisonics<7>>,
-                                           public SsrJuce<ssr::BinauralRenderer>
+class SoundScapeRendererAudioProcessor  :  public AudioProcessorBase<IOTypes::AudioChannels<10>, IOTypes::Ambisonics<7>>
 {
 public:
-    
+
     constexpr static int numberOfInputChannels = 10;
     constexpr static int numberOfOutputChannels = 64;
     //==============================================================================
@@ -87,5 +82,10 @@ private:
     float *inputChannelsSetting, *outputOrderSetting, *useSN3D, *param1, *param2;
     
     //==============================================================================
+    SsrJuce<ssr::BinauralRenderer> *SsrJuceInstance;
+    
+    //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoundScapeRendererAudioProcessor)
 };
+
+//#endif // PLUGIN_PROCESSOR_H

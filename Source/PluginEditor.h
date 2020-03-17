@@ -22,6 +22,9 @@
 
 #pragma once
 
+//#ifndef PLUGIN_EDITOR_H
+//#define PLUGIN_EDITOR_H
+
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 
@@ -91,3 +94,5 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoundScapeRendererAudioProcessorEditor)
 };
+
+//s#endif // PLUGIN_EDITOR_H

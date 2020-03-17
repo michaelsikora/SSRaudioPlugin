@@ -25,14 +25,13 @@
 
 //==============================================================================
 SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
-: AudioProcessorBase (
+                    : AudioProcessorBase (
 #ifndef JucePlugin_PreferredChannelConfigurations
                       BusesProperties()
                       .withInput ("Input",  AudioChannelSet::discreteChannels (64), true)
                       .withOutput ("Output", AudioChannelSet::discreteChannels (64), true),
 #endif
-                       createParameterLayout()),
-                       SsrJuce()
+                       createParameterLayout())
 {
     // get pointers to the parameters
     inputChannelsSetting = parameters.getRawParameterValue ("inputChannelsSetting");
@@ -49,6 +48,8 @@ SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
     parameters.addParameterListener ("param1", this);
     parameters.addParameterListener ("param2", this);
     
+    
+    SsrJuceInstance = new SsrJuce<ssr::BinauralRenderer>();
 }
 
 SoundScapeRendererAudioProcessor::~SoundScapeRendererAudioProcessor()
@@ -124,7 +125,9 @@ void SoundScapeRendererAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
         // ..do something to the data...
     }*/
     
-    _engine.audio_callback(Blocksize(), InSig(), OutSig());
+   float* tempData = buffer.getWritePointer(0);
+   float* const* channelData = &tempData;
+   SsrJuceInstance->_engine.audio_callback(getBlockSize(), channelData, channelData);
 }
 
 //==============================================================================

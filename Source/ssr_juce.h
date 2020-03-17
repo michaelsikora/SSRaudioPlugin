@@ -11,25 +11,18 @@
 
 #pragma once
 
-#ifndef SSR_JUCE_H
-#define SSR_JUCE_H
+//#ifndef SSR_JUCE_H
+//#define SSR_JUCE_H
 
 #include <string>
 #include <vector>
 
 #define APF_MIMOPROCESSOR_SAMPLE_TYPE float
-
-/*
-#define SSR_JUCE_INSTANCE(name, renderer) \
-class ssr_ ## name : public SsrJuce<renderer> { \
-  using SsrJuce<renderer>::SsrJuce; };
-*/
   
 #include "apf/pointer_policy.h"
 
 //#include "src/geometry.h"  // for ssr::quat
 //#include <gml/util.hpp>  // for gml::radians()
-
 
 template<typename Renderer>
 class SsrJuce
@@ -37,18 +30,17 @@ class SsrJuce
     public:
         using sample_type = typename Renderer::sample_type;
         
-        SsrJuce()
+        explicit SsrJuce()
             : _engine(_setup_default_parameters())
         {
-            _engine.load_reproduction_setup();    
+            _engine.load_reproduction_setup();  
         }
-        ~SsrJuce();
+        ~SsrJuce(){}
         
         
     Renderer _engine;
         
     private:
-        
     
         apf::parameter_map _setup_default_parameters(){
             apf::parameter_map params;
@@ -69,4 +61,4 @@ class SsrJuce
     std::vector<std::string> _source_ids;    
 };
 
-#endif // SSR_JUCE_H
+//#endif // SSR_JUCE_H
