@@ -1,4 +1,8 @@
 
-./temp/*
-./Builds/*
+/temp/*
+/Builds/*
 *.txt
+/.settings/*
+.cproject
+.project
+
