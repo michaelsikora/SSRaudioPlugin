@@ -31,7 +31,8 @@ SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
                       .withInput ("Input",  AudioChannelSet::discreteChannels (64), true)
                       .withOutput ("Output", AudioChannelSet::discreteChannels (64), true),
 #endif
-                       createParameterLayout())
+                       createParameterLayout()),
+                       SsrJuceInstance()
 {
     // get pointers to the parameters
     inputChannelsSetting = parameters.getRawParameterValue ("inputChannelsSetting");
@@ -48,12 +49,11 @@ SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
     parameters.addParameterListener ("param1", this);
     parameters.addParameterListener ("param2", this);
     
-    
-    SsrJuceInstance = new SsrJuce<ssr::BinauralRenderer>();
 }
 
 SoundScapeRendererAudioProcessor::~SoundScapeRendererAudioProcessor()
 {
+    delete SsrJuceInstance;
 }
 
 //==============================================================================
@@ -107,27 +107,13 @@ void SoundScapeRendererAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
     const int totalNumInputChannels  = getTotalNumInputChannels();
     const int totalNumOutputChannels = getTotalNumOutputChannels();
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
+    // This code clears any output channels that didn't contain input data
     for (int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    /*for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        float* channelData = buffer.getWritePointer (channel);
-        ignoreUnused (channelData);
-        // ..do something to the data...
-    }*/
-    
-   float* tempData = buffer.getWritePointer(0);
-   float* const* channelData = &tempData;
-   SsrJuceInstance->_engine.audio_callback(getBlockSize(), channelData, channelData);
+    // Run the callback from the renderer
+    SsrJuceInstance->simpleAudioCallback(buffer);
+   // SsrJuceInstance->rendererCallback(buffer);
 }
 
 //==============================================================================

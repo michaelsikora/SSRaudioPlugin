@@ -30,15 +30,16 @@
 
 #include "ssr_juce.h"
 #include "binauralrenderer.h"
+//#include "vbaprenderer.h"
 
 #define ProcessorClass SoundScapeRendererAudioProcessor
 
 //==============================================================================
-class SoundScapeRendererAudioProcessor  :  public AudioProcessorBase<IOTypes::AudioChannels<10>, IOTypes::Ambisonics<7>>
+class SoundScapeRendererAudioProcessor  :  public AudioProcessorBase<IOTypes::AudioChannels<64>, IOTypes::AudioChannels<64>>
 {
 public:
 
-    constexpr static int numberOfInputChannels = 10;
+    constexpr static int numberOfInputChannels = 64;
     constexpr static int numberOfOutputChannels = 64;
     //==============================================================================
     SoundScapeRendererAudioProcessor();
@@ -83,6 +84,7 @@ private:
     
     //==============================================================================
     SsrJuce<ssr::BinauralRenderer> *SsrJuceInstance;
+    //SsrJuce<ssr::VbapRenderer> *SsrJuceInstance;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoundScapeRendererAudioProcessor)

@@ -89,9 +89,6 @@ private:
     ReverseSlider slParam2;
     std::unique_ptr<SliderAttachment> slParam1Attachment, slParam2Attachment;
 
-
-
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoundScapeRendererAudioProcessorEditor)
 };
 

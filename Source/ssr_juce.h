@@ -18,11 +18,15 @@
 #include <vector>
 
 #define APF_MIMOPROCESSOR_SAMPLE_TYPE float
+
+#define SSR_SHARED_IO_BUFFERS 1
   
 #include "apf/pointer_policy.h"
 
 //#include "src/geometry.h"  // for ssr::quat
 //#include <gml/util.hpp>  // for gml::radians()
+
+#include "effects.h" // for using distortion effect
 
 template<typename Renderer>
 class SsrJuce
@@ -37,25 +41,39 @@ class SsrJuce
         }
         ~SsrJuce(){}
         
+        // This is a distortion effect to test the callback works
+        inline void simpleAudioCallback(AudioBuffer<float>& buffer){
+            applyDistortion(buffer);
+        }
         
-    Renderer _engine;
-        
+        // This is the callback to run the renderer on the buffer
+        inline void rendererCallback(AudioBuffer<float>& buffer){
+//            float** tempData = buffer.getArrayOfWritePointers();
+            float* tempData = buffer.getWritePointer(0);
+            float* const* channelData = &tempData;
+            _engine.audio_callback(buffer.getNumSamples(), channelData, channelData);
+        }
+    
     private:
     
         apf::parameter_map _setup_default_parameters(){
             apf::parameter_map params;
             
-//            params.set("in_channels", 64);
-//            params.set("out_channels", 64);
+            params.set("in_channels", 2);
+            params.set("out_channels", 2);
             params.set("threads",1);
 //            params.set("reproduction_setup", );
-//            params.set("hrir_file", );
+            params.set("hrir_file", "eq_filter_fabian_min_phase.wav");
+            params.set("hrir_size", 0);
 //            params.set("block_size", block_size());
 //            params.set("sample_rate", sample_rate());
             
             return params;
         }
         
+        
+    Renderer _engine;
+    
     int _in_channels;
     std::vector<sample_type*> _inputs, _outputs;
     std::vector<std::string> _source_ids;    
