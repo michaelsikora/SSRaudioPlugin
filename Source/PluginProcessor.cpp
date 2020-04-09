@@ -92,9 +92,8 @@ void SoundScapeRendererAudioProcessor::prepareToPlay (double sampleRate, int sam
     checkInputAndOutput (this, static_cast<int> (*inputChannelsSetting), static_cast<int> (*outputOrderSetting), true);
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    
+
     delete SsrJuceInstance;
-    
 //    printDebugMessage("SampleRate_is_" + std::to_string(static_cast<int>(sampleRate)), 4);
     
     this->SsrJuceInstance = new SsrJuce<RendererType>(2, 2, static_cast<int> (sampleRate), samplesPerBlock);

@@ -28,8 +28,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "../IEMPluginSuite/resources/AudioProcessorBase.h"
 
-#define APF_MIMOPROCESSOR_SAMPLE_TYPE float
-#define SSR_SHARED_IO_BUFFERS
+//#define APF_MIMOPROCESSOR_SAMPLE_TYPE float
   
 #include "ssr_juce.h"
 
@@ -37,6 +36,7 @@
 //#define RendererType ssr::BinauralRenderer
 
 #include "../ssr/src/vbaprenderer.h"
+#include "../ssr/src/legacy_source.h"
 #define RendererType ssr::VbapRenderer
 
 #define ProcessorClass SoundScapeRendererAudioProcessor
