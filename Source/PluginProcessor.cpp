@@ -98,7 +98,7 @@ void SoundScapeRendererAudioProcessor::prepareToPlay (double sampleRate, int sam
 //    printDebugMessage("SampleRate_is_" + std::to_string(static_cast<int>(sampleRate)), 4);
     
     this->SsrJuceInstance = new SsrJuce<RendererType>(2, 2, static_cast<int> (sampleRate), samplesPerBlock);
-
+    this->SsrJuceInstance->setupIO();
 }
 
 void SoundScapeRendererAudioProcessor::releaseResources()

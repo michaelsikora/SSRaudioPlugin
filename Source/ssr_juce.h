@@ -36,14 +36,22 @@ class SsrJuce
         explicit inline SsrJuce(int ins = 2, int outs = 2, int sampleRate = 44100, int blockSize = 2048)
             : _engine(new Renderer(setEngineParams(ins, outs, 1, sampleRate, blockSize)))
         {
-            _in_channels = ins;
+            _in_channels = ins; 
             _out_channels = outs;
                       
 //            printDebugMessage("Number_of_input_channels_is_" + std::to_string(_in_channels), 3);
+            printDebugMessage("Number_of_output_channels_is_" + std::to_string(_out_channels), 3);
+//           printDebugMessage("SsrJuceConstructed", 3);
            
-            _engine->load_reproduction_setup();
+        }
+        
+        ~SsrJuce(){ delete _engine; }
+        
+        inline void setupIO()
+        {
+            this->_engine->load_reproduction_setup();
             
-           printDebugMessage("reproduction_setup_loaded", 3);
+            printDebugMessage("reproduction_setup_loaded", 3);
             
             _inputs.resize(_in_channels);
             _outputs.resize(_out_channels);
@@ -51,25 +59,24 @@ class SsrJuce
             for (size_t i = 0; i < _in_channels; ++i)
             {
                 auto id = _engine->add_source("");
-                _engine->get_source(id)->active = true;
+                this->_engine->get_source(id)->active = true;
                 _source_ids.push_back(id);
             }
             
-            _engine->activate();  // start parallel processing (if threads > 1)    
-           
-           printDebugMessage("SsrJuceConstructed", 3);
-        }
+            this->_engine->activate();  // start parallel processing (if threads > 1) 
         
-        ~SsrJuce(){ delete _engine; }
+        }
         
         
         // This is a distortion effect to test the callback works
-        inline void simpleAudioCallback(AudioBuffer<float>& buffer){
+        inline void simpleAudioCallback(AudioBuffer<float>& buffer)
+        {
             applyDistortion(buffer);
         }
         
         // This is the callback to run the renderer on the buffer
-        inline void rendererCallback(AudioBuffer<float>& buffer){
+        inline void rendererCallback(AudioBuffer<float>& buffer)
+        {
             float* tempData = buffer.getWritePointer(0);
             float* const* channelData = &tempData;
             //float* const* channelData = buffer.getArrayOfWritePointers();
