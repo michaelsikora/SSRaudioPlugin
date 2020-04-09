@@ -28,19 +28,27 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "../IEMPluginSuite/resources/AudioProcessorBase.h"
 
+#define APF_MIMOPROCESSOR_SAMPLE_TYPE float
+#define SSR_SHARED_IO_BUFFERS
+  
 #include "ssr_juce.h"
-#include "binauralrenderer.h"
-//#include "vbaprenderer.h"
+
+//#include "../ssr/src/binauralrenderer.h"
+//#define RendererType ssr::BinauralRenderer
+
+#include "../ssr/src/vbaprenderer.h"
+#define RendererType ssr::VbapRenderer
 
 #define ProcessorClass SoundScapeRendererAudioProcessor
 
 //==============================================================================
-class SoundScapeRendererAudioProcessor  :  public AudioProcessorBase<IOTypes::AudioChannels<64>, IOTypes::AudioChannels<64>>
+class SoundScapeRendererAudioProcessor  :  public AudioProcessorBase<IOTypes::AudioChannels<2>,
+                                                                     IOTypes::AudioChannels<2>>
 {
 public:
 
-    constexpr static int numberOfInputChannels = 64;
-    constexpr static int numberOfOutputChannels = 64;
+    constexpr static int numberOfInputChannels = 2;
+    constexpr static int numberOfOutputChannels = 2;
     //==============================================================================
     SoundScapeRendererAudioProcessor();
     ~SoundScapeRendererAudioProcessor() override;
@@ -83,8 +91,7 @@ private:
     float *inputChannelsSetting, *outputOrderSetting, *useSN3D, *param1, *param2;
     
     //==============================================================================
-    SsrJuce<ssr::BinauralRenderer> *SsrJuceInstance;
-    //SsrJuce<ssr::VbapRenderer> *SsrJuceInstance;
+    SsrJuce<RendererType> *SsrJuceInstance;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoundScapeRendererAudioProcessor)

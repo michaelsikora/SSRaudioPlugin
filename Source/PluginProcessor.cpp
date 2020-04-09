@@ -23,16 +23,18 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#include "linuxDebugTools.h"
+
 //==============================================================================
 SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
                     : AudioProcessorBase (
 #ifndef JucePlugin_PreferredChannelConfigurations
                       BusesProperties()
-                      .withInput ("Input",  AudioChannelSet::discreteChannels (64), true)
-                      .withOutput ("Output", AudioChannelSet::discreteChannels (64), true),
+                      .withInput ("Input",  AudioChannelSet::discreteChannels (2), true)
+                      .withOutput ("Output", AudioChannelSet::discreteChannels (2), true),
 #endif
                        createParameterLayout()),
-                       SsrJuceInstance()
+                       SsrJuceInstance(new SsrJuce<RendererType>())
 {
     // get pointers to the parameters
     inputChannelsSetting = parameters.getRawParameterValue ("inputChannelsSetting");
@@ -48,7 +50,7 @@ SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
     parameters.addParameterListener ("useSN3D", this);
     parameters.addParameterListener ("param1", this);
     parameters.addParameterListener ("param2", this);
-    
+
 }
 
 SoundScapeRendererAudioProcessor::~SoundScapeRendererAudioProcessor()
@@ -90,7 +92,13 @@ void SoundScapeRendererAudioProcessor::prepareToPlay (double sampleRate, int sam
     checkInputAndOutput (this, static_cast<int> (*inputChannelsSetting), static_cast<int> (*outputOrderSetting), true);
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    ignoreUnused (sampleRate, samplesPerBlock);
+    
+    delete SsrJuceInstance;
+    
+//    printDebugMessage("SampleRate_is_" + std::to_string(static_cast<int>(sampleRate)), 4);
+    
+    this->SsrJuceInstance = new SsrJuce<RendererType>(2, 2, static_cast<int> (sampleRate), samplesPerBlock);
+
 }
 
 void SoundScapeRendererAudioProcessor::releaseResources()
@@ -113,7 +121,7 @@ void SoundScapeRendererAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
 
     // Run the callback from the renderer
     SsrJuceInstance->simpleAudioCallback(buffer);
-   // SsrJuceInstance->rendererCallback(buffer);
+    //SsrJuceInstance->rendererCallback(buffer);
 }
 
 //==============================================================================

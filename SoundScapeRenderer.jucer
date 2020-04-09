@@ -11,7 +11,7 @@
               pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0"
               pluginAUExportPrefix="SoundScapeRendererAU" aaxIdentifier="at.iem.SoundScapeRenderer"
               pluginAAXCategory="2" jucerVersion="5.4.5" companyCopyright="IEM - Michael Sikora"
-              companyName="IEM" companyWebsite="iem.at" headerPath="../../IEMPluginSuite/resources/&#10;../../ssr/gml/include/&#10;../../ssr/src/&#10;../../ssr/apf/"
+              companyName="IEM" companyWebsite="iem.at" headerPath="../../IEMPluginSuite/resources/&#10;../../ssr/gml/include/&#10;../../ssr/apf/"
               pluginFormats="buildVST" defines="JUCE_USE_CUSTOM_PLUGIN_STANDALONE_APP=0"
               binaryDataNamespace="BinaryData">
   <MAINGROUP id="LpzrV9" name="SoundScapeRenderer">
@@ -50,6 +50,21 @@
       <FILE id="xaLYRY" name="OSCUtilities.h" compile="0" resource="0" file="IEMPluginSuite/resources/OSC/OSCUtilities.h"/>
     </GROUP>
     <GROUP id="{508CBC88-3E2D-B197-3051-B94590C10F68}" name="Source">
+      <FILE id="fPcu76" name="ssr_global.cpp" compile="1" resource="0" file="ssr/src/ssr_global.cpp"/>
+      <FILE id="kLn0PK" name="xmlparser.cpp" compile="1" resource="0" file="ssr/src/xmlparser.cpp"/>
+      <FILE id="uhB7KW" name="2.0.asd" compile="0" resource="1" file="ssr/data/reproduction_setups/2.0.asd"/>
+      <FILE id="DGpBv3" name="eq_filter_fabian_min_phase.wav" compile="0"
+            resource="1" file="ssr/data/impulse_responses/hrirs/eq_filter_fabian_min_phase.wav"/>
+      <FILE id="HmckWV" name="legacy_directionalpoint.cpp" compile="1" resource="0"
+            file="ssr/src/legacy_directionalpoint.cpp"/>
+      <FILE id="rU3Z1S" name="legacy_orientation.cpp" compile="1" resource="0"
+            file="ssr/src/legacy_orientation.cpp"/>
+      <FILE id="CJauME" name="legacy_position.cpp" compile="1" resource="0"
+            file="ssr/src/legacy_position.cpp"/>
+      <FILE id="SOQYFN" name="legacy_scene.cpp" compile="1" resource="0"
+            file="ssr/src/legacy_scene.cpp"/>
+      <FILE id="DO7Xrm" name="linuxDebugTools.h" compile="0" resource="0"
+            file="Source/linuxDebugTools.h"/>
       <FILE id="zppBKG" name="ssr_juce.h" compile="0" resource="0" file="Source/ssr_juce.h"/>
       <FILE id="SLgq9s" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
