@@ -11,9 +11,6 @@
 
 #pragma once
 
-//#ifndef SSR_JUCE_H
-//#define SSR_JUCE_H
-
 #include <string>
 #include <vector>
 
@@ -21,6 +18,8 @@
 //#include <gml/util.hpp>  // for gml::radians()
 
 #define SSR_SHARED_IO_BUFFERS
+
+#define ERR(msg) printDebugFile(msg)
 
 #include "../ssr/apf/apf/pointer_policy.h"
 
@@ -33,23 +32,21 @@ class SsrJuce
 {    
     public:
         explicit inline SsrJuce(int ins = 2, int outs = 2, int sampleRate = 44100, int blockSize = 2048)
-            : _engine(Renderer(setEngineParams(ins, outs, 1, sampleRate, blockSize)))
+            : _engine(Renderer(setEngineParams(ins, outs, 1, sampleRate, blockSize))),
+              _in_channels(ins),
+              _out_channels(outs)
         {
-            _in_channels = ins; 
-            _out_channels = outs;
-                      
-//            printDebugMessage("Number_of_input_channels_is_" + std::to_string(_in_channels), 3);
-//            printDebugMessage("Number_of_output_channels_is_" + std::to_string(_out_channels), 3);
-//            printDebugMessage("Blocksize_is_" + std::to_string(blockSize), 3);
         }
         
         ~SsrJuce(){}
         
         inline void setupIO()
         {
-//            this->_engine.load_reproduction_setup();
-            
-            printDebugMessage("reproduction_setup_loaded", 3);
+            try {
+                this->_engine.load_reproduction_setup();
+            } catch(const std::exception& e) {
+                printDebugFile(std::string(e.what()));
+            }
             
             _inputs.resize(_in_channels);
             _outputs.resize(_out_channels);
@@ -90,8 +87,8 @@ class SsrJuce
 
             params.set("threads", threads);
             params.set("reproduction_setup", "2.0.asd");
-//            params.set("hrir_file", "eq_filter_fabian_min_phase.wav");
-//            params.set("hrir_size", 0);
+            params.set("hrir_file", "eq_filter_fabian_min_phase.wav");
+            params.set("hrir_size", 0);
             params.set("block_size", block_size);
             params.set("sample_rate", sample_rate);
             
@@ -108,4 +105,3 @@ class SsrJuce
     std::vector<std::string> _source_ids;    
 };
 
-//#endif // SSR_JUCE_H
