@@ -32,12 +32,12 @@
   
 #include "ssr_juce.h"
 
-//#include "../ssr/src/binauralrenderer.h"
-//#define RendererType ssr::BinauralRenderer
+#include "../ssr/src/binauralrenderer.h"
+#define RendererType ssr::BinauralRenderer
 
-#include "../ssr/src/vbaprenderer.h"
-#include "../ssr/src/legacy_source.h"
-#define RendererType ssr::VbapRenderer
+//#include "../ssr/src/vbaprenderer.h"
+//#include "../ssr/src/legacy_source.h"
+//#define RendererType ssr::VbapRenderer
 
 #define ProcessorClass SoundScapeRendererAudioProcessor
 

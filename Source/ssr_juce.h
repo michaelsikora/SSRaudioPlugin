@@ -40,8 +40,11 @@ class SsrJuce
         
         ~SsrJuce(){}
         
+        // Setup the reproduction setup (outputs) and the sources (inputs) of the renderer
+        // Called from prepareToPlay
         inline void setupIO()
         {
+            // setup outputs
             try {
                 this->_engine.load_reproduction_setup();
             } catch(const std::exception& e) {
@@ -51,14 +54,19 @@ class SsrJuce
             _inputs.resize(_in_channels);
             _outputs.resize(_out_channels);
             
-            for (size_t i = 0; i < _in_channels; ++i)
-            {
-                auto id = _engine.add_source("");
-                this->_engine.get_source(id)->active = true;
-                _source_ids.push_back(id);
-            }
+            // setup inputs
+            try {
+                for (size_t i = 0; i < _in_channels; ++i)
+                {
+                    auto id = _engine.add_source("");
+                    this->_engine.get_source(id)->active = true;
+                    _source_ids.push_back(id);
+                }
             
-            this->_engine.activate();  // start parallel processing (if threads > 1) 
+                this->_engine.activate();  // start parallel processing (if threads > 1) 
+            } catch(const std::exception& e) {
+                printDebugFile(std::string(e.what()));
+            }
         }
         
         
@@ -72,22 +80,21 @@ class SsrJuce
         // This is the callback to run the renderer on the buffer
         inline void rendererCallback(AudioBuffer<float>& buffer)
         {
-            //float* tempData = buffer.getWritePointer(0);
-            //float* const* channelData = &tempData;
             float* const* channelData = buffer.getArrayOfWritePointers();
-            _engine.audio_callback(buffer.getNumSamples(), channelData, channelData);
+            this->_engine.audio_callback(buffer.getNumSamples(), channelData, channelData);
         }
          
     private:
         
         apf::parameter_map setEngineParams(int inputs, int outputs, int threads
-            , int block_size, int sample_rate)
+            , int sample_rate, int block_size)
         {
             apf::parameter_map params;
 
             params.set("threads", threads);
-            params.set("reproduction_setup", "2.0.asd");
-            params.set("hrir_file", "eq_filter_fabian_min_phase.wav");
+//            params.set("reproduction_setup", "2.0.asd");
+            params.set("hrir_file", "/home/michaelsikora/opt/SoundScapeRenderer/ssr/data/impulse_responses/hrirs/hrirs_fabian_min_phase_eq.wav");
+//            params.set("hrir_file", "data/impulse_responses/hrirs/hrirs_fabian_min_phase.wav");
             params.set("hrir_size", 0);
             params.set("block_size", block_size);
             params.set("sample_rate", sample_rate);

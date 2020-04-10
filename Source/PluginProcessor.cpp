@@ -94,8 +94,6 @@ void SoundScapeRendererAudioProcessor::prepareToPlay (double sampleRate, int sam
     // initialisation that you need..
 
     delete SsrJuceInstance;
-//    printDebugMessage("SampleRate_is_" + std::to_string(static_cast<int>(sampleRate)), 4);
-    
     this->SsrJuceInstance = new SsrJuce<RendererType>(2, 2, static_cast<int> (sampleRate), samplesPerBlock);
     this->SsrJuceInstance->setupIO();
 }
@@ -119,8 +117,8 @@ void SoundScapeRendererAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
         buffer.clear (i, 0, buffer.getNumSamples());
 
     // Run the callback from the renderer
-    SsrJuceInstance->simpleAudioCallback(buffer);
-    //SsrJuceInstance->rendererCallback(buffer);
+//    SsrJuceInstance->simpleAudioCallback(buffer);
+        SsrJuceInstance->rendererCallback(buffer);
 }
 
 //==============================================================================

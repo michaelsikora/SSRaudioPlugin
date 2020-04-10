@@ -50,9 +50,9 @@
       <FILE id="xaLYRY" name="OSCUtilities.h" compile="0" resource="0" file="IEMPluginSuite/resources/OSC/OSCUtilities.h"/>
     </GROUP>
     <GROUP id="{508CBC88-3E2D-B197-3051-B94590C10F68}" name="Source">
+      <FILE id="vsDaLm" name="2.0.asd" compile="0" resource="1" file="Source/2.0.asd"/>
       <FILE id="fPcu76" name="ssr_global.cpp" compile="1" resource="0" file="ssr/src/ssr_global.cpp"/>
       <FILE id="kLn0PK" name="xmlparser.cpp" compile="1" resource="0" file="ssr/src/xmlparser.cpp"/>
-      <FILE id="uhB7KW" name="2.0.asd" compile="0" resource="1" file="ssr/data/reproduction_setups/2.0.asd"/>
       <FILE id="DGpBv3" name="eq_filter_fabian_min_phase.wav" compile="0"
             resource="1" file="ssr/data/impulse_responses/hrirs/eq_filter_fabian_min_phase.wav"/>
       <FILE id="HmckWV" name="legacy_directionalpoint.cpp" compile="1" resource="0"
