@@ -53,7 +53,8 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
-
+    
+    void chooseHrirFile();
 
     void timerCallback() override;
 
@@ -74,7 +75,8 @@ private:
         - AmbisonicIOWidget<maxOrder>
         - DirectivitiyIOWidget
      */
-    TitleBar<AudioChannelsIOWidget<10,true>, AmbisonicIOWidget<>> title;
+    //TitleBar<AudioChannelsIOWidget<16,true>, AmbisonicIOWidget<>> title;
+    TitleBar<NoIOWidget,NoIOWidget> title;
     OSCFooter footer;
     // =============== end essentials ============
 
@@ -84,9 +86,9 @@ private:
     std::unique_ptr<ComboBoxAttachment> cbOrderSettingAttachment;
     std::unique_ptr<ComboBoxAttachment> cbNormalizationSettingAttachment;
 
-    // Demo stuff
+    // sliders
     Slider slParam1;
-    ReverseSlider slParam2;
+    Slider slParam2;
     std::unique_ptr<SliderAttachment> slParam1Attachment, slParam2Attachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoundScapeRendererAudioProcessorEditor)

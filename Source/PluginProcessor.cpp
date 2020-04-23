@@ -39,23 +39,20 @@ SoundScapeRendererAudioProcessor::SoundScapeRendererAudioProcessor()
     // get pointers to the parameters
     inputChannelsSetting = parameters.getRawParameterValue ("inputChannelsSetting");
     outputOrderSetting = parameters.getRawParameterValue ("outputOrderSetting");
-    useSN3D = parameters.getRawParameterValue ("useSN3D");
-    param1 = parameters.getRawParameterValue ("param1");
-    param2 = parameters.getRawParameterValue ("param2");
+    loc1x = parameters.getRawParameterValue ("loc1x");
+    loc1y = parameters.getRawParameterValue ("loc1y");
 
 
     // add listeners to parameter changes
     parameters.addParameterListener ("inputChannelsSetting", this);
     parameters.addParameterListener ("outputOrderSetting", this);
-    parameters.addParameterListener ("useSN3D", this);
-    parameters.addParameterListener ("param1", this);
-    parameters.addParameterListener ("param2", this);
+    parameters.addParameterListener ("loc1x", this);
+    parameters.addParameterListener ("loc1y", this);
 
 }
 
 SoundScapeRendererAudioProcessor::~SoundScapeRendererAudioProcessor()
 {
-    delete SsrJuceInstance;
 }
 
 //==============================================================================
@@ -92,7 +89,7 @@ void SoundScapeRendererAudioProcessor::prepareToPlay (double sampleRate, int sam
     checkInputAndOutput (this, static_cast<int> (*inputChannelsSetting), static_cast<int> (*outputOrderSetting), true);
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-
+    
     delete SsrJuceInstance;
     this->SsrJuceInstance = new SsrJuce<RendererType>(2, 2, static_cast<int> (sampleRate), samplesPerBlock);
     this->SsrJuceInstance->setupIO();
@@ -112,13 +109,13 @@ void SoundScapeRendererAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
     const int totalNumInputChannels  = getTotalNumInputChannels();
     const int totalNumOutputChannels = getTotalNumOutputChannels();
 
-    // This code clears any output channels that didn't contain input data
+    // This clears any output channels that didn't contain input data
+    // prevents feedback and ill-defined behaviour
     for (int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
     // Run the callback from the renderer
-//    SsrJuceInstance->simpleAudioCallback(buffer);
-        SsrJuceInstance->rendererCallback(buffer);
+    SsrJuceInstance->rendererCallback(buffer);
 }
 
 //==============================================================================
@@ -173,6 +170,11 @@ void SoundScapeRendererAudioProcessor::parameterChanged (const String &parameter
 
     if (parameterID == "inputChannelsSetting" || parameterID == "outputOrderSetting" )
         userChangedIOSettings = true;
+
+    if (parameterID == "loc1x" || parameterID == "loc1y"){
+        this->SsrJuceInstance->updatePosition(0, *loc1x, *loc1y);
+        //printDebugFile(std::to_string(newValue)+ " " + std::to_string(*loc1x)+ " " + std::to_string(*loc1y));
+    }
 }
 
 void SoundScapeRendererAudioProcessor::updateBuffers()
@@ -205,21 +207,21 @@ std::vector<std::unique_ptr<RangedAudioParameter>> SoundScapeRendererAudioProces
                                                            else if (value >= 7.5f) return "7th";
                                                            else return "Auto";},
                                                        nullptr));
-
+/*
     params.push_back (OSCParameterInterface::createParameterTheOldWay ("useSN3D", "Normalization", "",
                                                        NormalisableRange<float>(0.0f, 1.0f, 1.0f), 1.0f,
                                                        [](float value) {
                                                            if (value >= 0.5f) return "SN3D";
                                                            else return "N3D";
                                                        }, nullptr));
-
-    params.push_back (OSCParameterInterface::createParameterTheOldWay ("param1", "Parameter 1", "",
-                                                       NormalisableRange<float> (-10.0f, 10.0f, 0.1f), 0.0,
+*/
+    params.push_back (OSCParameterInterface::createParameterTheOldWay ("loc1x", "x-coordinate", "meters",
+                                                       NormalisableRange<float> (-1.0f, 1.0f, 0.01f), 0.0,
                                                        [](float value) {return String (value);}, nullptr));
 
-    params.push_back (OSCParameterInterface::createParameterTheOldWay ("param2", "Parameter 2", "dB",
-                                                       NormalisableRange<float> (-50.0f, 0.0f, 0.1f), -10.0,
-                                                       [](float value) {return String (value, 1);}, nullptr));
+    params.push_back (OSCParameterInterface::createParameterTheOldWay ("loc1y", "y-coordinate", "meters",
+                                                       NormalisableRange<float> (-1.0f, 1.0f, 0.01f), 0.0,
+                                                       [](float value) {return String (value);}, nullptr));
 
     return params;
 }

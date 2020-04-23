@@ -4,7 +4,7 @@
               reportAppUsage="0" splashScreenColour="Dark" projectType="audioplug"
               version="0.6.0" bundleIdentifier="at.iem.SoundScapeRenderer"
               includeBinaryInAppConfig="1" cppLanguageStandard="17" buildVST="1"
-              buildVST3="0" buildAU="0" buildAUv3="0" buildRTAS="0" buildAAX="0"
+              buildVST3="1" buildAU="0" buildAUv3="0" buildRTAS="0" buildAAX="0"
               buildStandalone="0" enableIAA="0" pluginName="SoundScapeRenderer"
               pluginDesc="SoundScapeRenderer" pluginManufacturer="IEM" pluginManufacturerCode="IEMA"
               pluginCode="SSR" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="0"
@@ -12,22 +12,9 @@
               pluginAUExportPrefix="SoundScapeRendererAU" aaxIdentifier="at.iem.SoundScapeRenderer"
               pluginAAXCategory="2" jucerVersion="5.4.5" companyCopyright="IEM - Michael Sikora"
               companyName="IEM" companyWebsite="iem.at" headerPath="../../IEMPluginSuite/resources/&#10;../../ssr/gml/include/&#10;../../ssr/apf/"
-              pluginFormats="buildVST" defines="JUCE_USE_CUSTOM_PLUGIN_STANDALONE_APP=0"
+              pluginFormats="buildVST,buildVST3" defines="JUCE_USE_CUSTOM_PLUGIN_STANDALONE_APP=0&#10;JUCE_DISABLE_NATIVE_FILECHOOSERS=1"
               binaryDataNamespace="BinaryData">
   <MAINGROUP id="LpzrV9" name="SoundScapeRenderer">
-    <GROUP id="{DD24AA7B-644A-3C5E-9734-243C087817B2}" name="Standalone">
-      <FILE id="F2WN69" name="IEM_AudioDeviceSelectorComponent.cpp" compile="1"
-            resource="0" file="IEMPluginSuite/resources/Standalone/IEM_AudioDeviceSelectorComponent.cpp"/>
-      <FILE id="V0NVrj" name="IEM_AudioDeviceSelectorComponent.h" compile="0"
-            resource="0" file="IEMPluginSuite/resources/Standalone/IEM_AudioDeviceSelectorComponent.h"/>
-      <FILE id="aKILIN" name="IEM_JackAudio.h" compile="0" resource="0" file="IEMPluginSuite/resources/Standalone/IEM_JackAudio.h"/>
-      <FILE id="PfeDCF" name="IEMPluginSuiteSmall.png" compile="0" resource="1"
-            file="IEMPluginSuite/resources/Standalone/IEMPluginSuiteSmall.png"/>
-      <FILE id="scPV3G" name="MyStandaloneFilterWindow.h" compile="0" resource="0"
-            file="IEMPluginSuite/resources/Standalone/MyStandaloneFilterWindow.h"/>
-      <FILE id="gN91Be" name="StandaloneApp.cpp" compile="1" resource="0"
-            file="IEMPluginSuite/resources/Standalone/StandaloneApp.cpp"/>
-    </GROUP>
     <GROUP id="{1B6BB8E4-E576-FBC7-B6B6-8603D2CEBF9D}" name="lookAndFeel">
       <FILE id="qHBQ4c" name="IEM_LaF.h" compile="0" resource="0" file="IEMPluginSuite/resources/lookAndFeel/IEM_LaF.h"/>
       <FILE id="ZLQkJF" name="Roboto-Bold.ttf" compile="0" resource="1" file="IEMPluginSuite/resources/lookAndFeel/Roboto-Bold.ttf"/>
@@ -138,7 +125,8 @@
       </MODULEPATHS>
     </VS2017>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile/" smallIcon="SZT7j9" bigIcon="SZT7j9"
-                externalLibraries="fftw3f&#10;sndfile&#10;xml2" linuxExtraPkgConfig="libxml-2.0">
+                externalLibraries="fftw3f&#10;sndfile&#10;xml2" linuxExtraPkgConfig="libxml-2.0"
+                extraDefs="JUCE_USE_CUSTOM_PLUGIN_STANDALONE_APP=0">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" targetName="SoundScapeRenderer"/>
         <CONFIGURATION name="Release" isDebug="0" targetName="SoundScapeRenderer"/>

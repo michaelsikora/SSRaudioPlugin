@@ -27,8 +27,6 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "../IEMPluginSuite/resources/AudioProcessorBase.h"
-
-//#define APF_MIMOPROCESSOR_SAMPLE_TYPE float
   
 #include "ssr_juce.h"
 
@@ -46,7 +44,8 @@ class SoundScapeRendererAudioProcessor  :  public AudioProcessorBase<IOTypes::Au
                                                                      IOTypes::AudioChannels<2>>
 {
 public:
-
+    
+    // IEM plugin suite uses these variables to know the bus sizes.
     constexpr static int numberOfInputChannels = 2;
     constexpr static int numberOfOutputChannels = 2;
     //==============================================================================
@@ -84,14 +83,14 @@ public:
     std::vector<std::unique_ptr<RangedAudioParameter>> createParameterLayout();
     //==============================================================================
 
-
 private:
     //==============================================================================
     // list of used audio parameters
-    float *inputChannelsSetting, *outputOrderSetting, *useSN3D, *param1, *param2;
+    float *inputChannelsSetting, *outputOrderSetting; 
+    float *loc1x, *loc1y;
     
     //==============================================================================
-    SsrJuce<RendererType> *SsrJuceInstance;
+    SsrJuce<RendererType>* SsrJuceInstance;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoundScapeRendererAudioProcessor)

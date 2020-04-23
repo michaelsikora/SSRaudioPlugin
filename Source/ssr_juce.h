@@ -19,8 +19,6 @@
 
 #define SSR_SHARED_IO_BUFFERS
 
-#define ERR(msg) printDebugFile(msg)
-
 #include "../ssr/apf/apf/pointer_policy.h"
 
 #include "effects.h" // for using distortion effect
@@ -44,6 +42,10 @@ class SsrJuce
         // Called from prepareToPlay
         inline void setupIO()
         {
+            
+            _inputs.resize(_in_channels);
+            _outputs.resize(_out_channels);
+            
             // setup outputs
             try {
                 this->_engine.load_reproduction_setup();
@@ -51,15 +53,13 @@ class SsrJuce
                 printDebugFile(std::string(e.what()));
             }
             
-            _inputs.resize(_in_channels);
-            _outputs.resize(_out_channels);
-            
             // setup inputs
             try {
                 for (size_t i = 0; i < _in_channels; ++i)
                 {
                     auto id = _engine.add_source("");
                     this->_engine.get_source(id)->active = true;
+                    this->_engine.get_source(id)->position = {1.0f, 0.0f, 0.0f};
                     _source_ids.push_back(id);
                 }
             
@@ -81,7 +81,17 @@ class SsrJuce
         inline void rendererCallback(AudioBuffer<float>& buffer)
         {
             float* const* channelData = buffer.getArrayOfWritePointers();
-            this->_engine.audio_callback(buffer.getNumSamples(), channelData, channelData);
+            try {
+                this->_engine.audio_callback(buffer.getNumSamples(), channelData, channelData);
+            } catch(const std::exception& e) {
+                printDebugFile(std::string(e.what()));
+                printDebugFile("blocksize is " + std::to_string(buffer.getNumSamples()));
+            }
+        }
+        
+        inline void updatePosition(int channelNumber, float x, float y)
+        {
+           this->_engine.get_source(_source_ids[channelNumber])->position = {x, y, 0.0f};
         }
          
     private:
@@ -90,11 +100,10 @@ class SsrJuce
             , int sample_rate, int block_size)
         {
             apf::parameter_map params;
-
+            
             params.set("threads", threads);
 //            params.set("reproduction_setup", "2.0.asd");
             params.set("hrir_file", "/home/michaelsikora/opt/SoundScapeRenderer/ssr/data/impulse_responses/hrirs/hrirs_fabian_min_phase_eq.wav");
-//            params.set("hrir_file", "data/impulse_responses/hrirs/hrirs_fabian_min_phase.wav");
             params.set("hrir_size", 0);
             params.set("block_size", block_size);
             params.set("sample_rate", sample_rate);

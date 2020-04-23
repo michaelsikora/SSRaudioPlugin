@@ -29,8 +29,8 @@ SoundScapeRendererAudioProcessorEditor::SoundScapeRendererAudioProcessorEditor (
 {
     // ============== BEGIN: essentials ======================
     // set GUI size and lookAndFeel
-    //setSize(500, 300); // use this to create a fixed-size GUI
-    setResizeLimits (500, 300, 800, 500); // use this to create a resizable GUI
+    setSize(500, 300); // use this to create a fixed-size GUI
+    //setResizeLimits (500, 300, 800, 500); // use this to create a resizable GUI
     setLookAndFeel (&globalLaF);
 
     // make title and footer visible, and set the PluginName
@@ -40,18 +40,20 @@ SoundScapeRendererAudioProcessorEditor::SoundScapeRendererAudioProcessorEditor (
     addAndMakeVisible (&footer);
     // ============= END: essentials ========================
 
-
+/*
     // create the connection between title component's comboBoxes and parameters
     cbInputChannelsSettingAttachment.reset (new ComboBoxAttachment (valueTreeState, "inputChannelsSetting", *title.getInputWidgetPtr()->getChannelsCbPointer()));
     cbNormalizationSettingAttachment.reset (new ComboBoxAttachment (valueTreeState, "useSN3D", *title.getOutputWidgetPtr()->getNormCbPointer()));
     cbOrderSettingAttachment.reset (new ComboBoxAttachment (valueTreeState, "outputOrderSetting", *title.getOutputWidgetPtr()->getOrderCbPointer()));
-
+*/
     addAndMakeVisible (slParam1);
-    slParam1Attachment.reset (new SliderAttachment (valueTreeState, "param1", slParam1));
+    slParam1Attachment.reset (new SliderAttachment (valueTreeState, "loc1x", slParam1));
     addAndMakeVisible (slParam2);
-    slParam2Attachment.reset (new SliderAttachment (valueTreeState, "param2", slParam2));
+    slParam2Attachment.reset (new SliderAttachment (valueTreeState, "loc1y", slParam2));
+    
 
-
+//    chooseHrirFile();
+    
     // start timer after everything is set up properly
     startTimer (20);
 }
@@ -104,4 +106,19 @@ void SoundScapeRendererAudioProcessorEditor::timerCallback()
     // ==========================================
 
     // insert stuff you want to do be done at every timer callback
+}
+
+void SoundScapeRendererAudioProcessorEditor::chooseHrirFile()
+{
+    FileChooser myChooser ("Please select the hrir you want to load...",
+                           File::getSpecialLocation (File::userHomeDirectory),
+                           "*.wav");
+                           
+    if (myChooser.browseForFileToOpen())
+    {
+      //  auto file = myChooser.getResult();
+     //   juce::String filePath = juce::String(file.getFullPathName());
+//        printDebugMessage(filePath.toStdString(), 5);
+       // printDebugMessage(filePath.toStdString(), 5);
+    }
 }
