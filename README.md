@@ -14,17 +14,17 @@ https://soundcloud.com/paper_architect/ssrtestvoicereading
 
 **DAW** - Reaper version 5.978
 
-I made two tiny bash scripts to make development a little easier on me. They are run as:
+To compile you can use the Makefile in the main directory. Run make setup if you get the compiler error requesting the ssr and apf functions be explicitly defined as inline. For example:
 
 ```shell
-bash make.sh
-bash install.sh
+make setup
+make
+make install
 ```
 
-The first changes directory to the Linux makefile and runs make using two cores (-j2). The second copies the compiles .so file to the bin/ directory for easy access to the plugin. 
+The compiled binary is installed in the bin/ directory as well as the system vst3 directory. 
 
 The JUCE git repository is added as a submodule.
-Make sure the global paths in Projucer point to a valid JUCE path before compiling. 
-For instance, during development the JUCE library was included at /home/michaelsikora/JUCE/. 
+Make sure the global paths in Projucer point to a valid JUCE path before compiling.  
 
 
